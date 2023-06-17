@@ -1,0 +1,62 @@
+.app-container {
+  display: flex;
+  height: 100%;
+  width: 1200px;
+  margin: 0 auto;
+  .form {
+    padding: 20px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 1200px;
+  margin: 0 auto;
+  
+}
+.menu {
+  margin-bottom: 20px;
+}
+.code {
+  width: 700px;
+  flex-shrink: 0;
+}
+.codePanel {
+  min-height: 400;
+  margin-bottom: 20;
+}
+.uiAndValue {
+  display: flex;
+  justify-content: space-between;
+  & > * {
+    width: 46%;
+  }
+}
+.content {
+  display: flex;
+}
+.form {
+  padding: 0 20px;
+  flex-grow: 1;
+}
+.menubutton {
+  appearance: none;
+  border-width: 0;
+  background-color: transparent;
+  cursor: pointer;
+  display: inline-block;
+  padding: 15px;
+  border-radius: 5px;
+  &:hover {
+    background: #efefef;
+  }
+}
+.menuselected {
+  background: #337ab7;
+  color: #fff;
+  &:hover {
+    background: #337ab7;
+  }
+}
