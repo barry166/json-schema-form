@@ -44,7 +44,6 @@ export default defineComponent({
     })
 
     const handleValueChange = (v: any) => {
-      // console.log('data', v, 'toJson(v)', toJson(v))
       demo.data = v
       demo.dataCode = toJson(v)
     }
