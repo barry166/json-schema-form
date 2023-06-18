@@ -1,10 +1,11 @@
 import { inject } from 'vue'
-import type { CommonWidgetDefine } from './types'
+import type { CommonFieldType, Theme } from './types'
 
 export const SchemaKey = Symbol('schemaKey')
 
 type SchemaContext = {
-  SchemaItem: CommonWidgetDefine
+  SchemaItem: CommonFieldType
+  theme: Theme
 }
 
 export function useSchemaContext () {

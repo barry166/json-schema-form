@@ -1,10 +1,7 @@
-import { defineComponent } from 'vue'
+import SelectionWidget from './SelectionWidget'
 
-export default defineComponent({
-  name: 'ThemeDefault',
-  setup() {
-    return () => {
-      return <div>theme default</div>
-    }
+export default {
+  widgets: {
+    SelectionWidget
   }
-})
+}

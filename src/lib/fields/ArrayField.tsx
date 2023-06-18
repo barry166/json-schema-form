@@ -3,7 +3,6 @@ import { FieldPropsDefine, type Schema } from '../types'
 import { useSchemaContext } from '../context'
 import { isObject } from '../utils'
 import classes from './ArrayField.module.scss'
-import Selection from '../widgets/selection'
 
 const ArrayItemWrapper = defineComponent({
   name: 'ArrayItemWrapper',
@@ -75,7 +74,7 @@ export default defineComponent({
       const { value = [], schema, rootSchema } = props
 
       const context = useSchemaContext()
-      const { SchemaItem } = context
+      const { SchemaItem, theme } = context
 
       const isMultiType = Array.isArray(schema.items)
       const isSelect = isObject(schema.items) && (schema.items as any).enum
@@ -156,6 +155,7 @@ export default defineComponent({
       } else {
         const enumValue = (schema.items as any)!.enum
         const options = enumValue.map((i: any) => ({ key: i, value: i }))
+        const Selection = theme.widgets.SelectionWidget
 
         return <Selection value={props.value} onChange={props.onChange} options={options} />
       }

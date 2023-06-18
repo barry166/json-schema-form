@@ -2,6 +2,7 @@ import { defineComponent, reactive, ref, watchEffect, type Ref } from 'vue'
 import MonacoEditor from './components/MonacoEditor/MonacoEditor'
 import classes from './App.module.scss'
 import SchemaForm from './lib'
+import themeDefault from './lib/theme-default'
 import demos from './demos'
 
 function toJson(data: any) {
@@ -82,7 +83,12 @@ export default defineComponent({
             </div>
           </div>
           <div class={classes.form}>
-            <SchemaForm schema={demo.schema} value={demo.data} onChange={handleValueChange} />
+            <SchemaForm
+              theme={themeDefault as any}
+              schema={demo.schema}
+              value={demo.data}
+              onChange={handleValueChange}
+            />
           </div>
         </div>
       )

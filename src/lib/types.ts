@@ -1,4 +1,5 @@
 import type { DefineComponent, PropType } from 'vue'
+import SelectionWidget from './widgets/selection'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -66,4 +67,30 @@ export const FieldPropsDefine = {
   }
 } as const
 
-export type CommonWidgetDefine = DefineComponent<typeof FieldPropsDefine>
+export const CommonWidgetPropsDefine = {
+  value: {},
+  onChange: {
+    type: Function as PropType<(v: any) => void>,
+    required: true,
+  }
+} as const
+
+export const SelectionWidgetPropsDefine = {
+  ...CommonWidgetPropsDefine,
+  options: {
+    type: Array as PropType<{ key: string; value: any }[]>,
+    required: true,
+  },
+} as const
+
+export type CommonFieldType = DefineComponent<typeof FieldPropsDefine>
+export type CommonWidgetDefine = DefineComponent<typeof CommonWidgetPropsDefine>
+export type SelectionWidgetDefine = DefineComponent<typeof SelectionWidgetPropsDefine>
+
+export type Theme = {
+  widgets: {
+    SelectionWidget: SelectionWidgetDefine
+    TextWidget: CommonWidgetDefine
+    NumberWidget: CommonWidgetDefine
+  }
+}
