@@ -1,8 +1,9 @@
 import { defineComponent, onDeactivated, type PropType } from 'vue'
-import { FieldPropsDefine, type Schema } from '../types'
+import { FieldPropsDefine, WidgetNames, type Schema } from '../types'
 import { useSchemaContext } from '../context'
 import { isObject } from '../utils'
 import classes from './ArrayField.module.scss'
+import { getWidget } from '../theme'
 
 const ArrayItemWrapper = defineComponent({
   name: 'ArrayItemWrapper',
@@ -70,51 +71,59 @@ export default defineComponent({
   name: 'ArrayField',
   props: FieldPropsDefine,
   setup(props) {
+    const handleArrayItemChange = (v: any, index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      arr[index] = v
+      console.log('arr', arr)
+      props.onChange(arr)
+    }
+
+    const handleAdd = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      arr.splice(index + 1, 0, undefined)
+      props.onChange(arr)
+    }
+
+    const handleDelete = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      arr.splice(index, 1)
+      props.onChange(arr)
+    }
+
+    const handleUp = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      if (index === 0) return
+
+      const item = arr.splice(index, 1)[0]
+      arr.splice(index - 1, 0, item)
+      props.onChange(arr)
+    }
+
+    const handleDown = (index: number) => {
+      const { value } = props
+      const arr = Array.isArray(value) ? value : []
+      if (index === arr.length - 1) return
+
+      const item = arr.splice(index, 1)[0]
+      arr.splice(index + 1, 0, item)
+      props.onChange(arr)
+    }
+
+    const SelectionWidgetRef = getWidget(WidgetNames.SelectionWidget)
+
     return () => {
       const { value = [], schema, rootSchema } = props
 
       const context = useSchemaContext()
       const { SchemaItem, theme } = context
+      const SelectionWidget = SelectionWidgetRef.value
 
       const isMultiType = Array.isArray(schema.items)
       const isSelect = isObject(schema.items) && (schema.items as any).enum
-
-      const handleArrayItemChange = (v: any, index: number) => {
-        const arr = Array.isArray(value) ? value : []
-        arr[index] = v
-        console.log('arr', arr)
-        props.onChange(arr)
-      }
-
-      const handleAdd = (index: number) => {
-        const arr = Array.isArray(value) ? value : []
-        arr.splice(index + 1, 0, undefined)
-        props.onChange(arr)
-      }
-
-      const handleDelete = (index: number) => {
-        const arr = Array.isArray(value) ? value : []
-        arr.splice(index, 1)
-        props.onChange(arr)
-      }
-
-      const handleUp = (index: number) => {
-        const arr = Array.isArray(value) ? value : []
-        if (index === 0) return
-
-        const item = arr.splice(index, 1)[0]
-        arr.splice(index - 1, 0, item)
-        props.onChange(arr)
-      }
-
-      const handleDown = (index: number) => {
-        const arr = Array.isArray(value) ? value : []
-        if (index === arr.length - 1) return
-
-        const item = arr.splice(index, 1)[0]
-        arr.splice(index + 1, 0, item)
-        props.onChange(arr)
-      }
 
       if (isMultiType) {
         const items: Schema[] = schema.items as any
@@ -155,9 +164,8 @@ export default defineComponent({
       } else {
         const enumValue = (schema.items as any)!.enum
         const options = enumValue.map((i: any) => ({ key: i, value: i }))
-        const Selection = theme.widgets.SelectionWidget
 
-        return <Selection value={props.value} onChange={props.onChange} options={options} />
+        return <SelectionWidget value={props.value} onChange={props.onChange} options={options} />
       }
     }
   }

@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeAll, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import SchemaForm, { ArrayField, NumberField, SelectionWidget, StringField } from '../lib'
-import exp from 'constants'
+import { ArrayField, NumberField, SelectionWidget, StringField } from '../lib'
+import TestComponent from './utils/TestComponent'
 
 describe('ArrayField', () => {
   it('should render multi type', () => {
     let value: any[] = []
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -29,7 +29,7 @@ describe('ArrayField', () => {
 
   it('should render single type', () => {
     let value: any[] = ['1', '2']
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -47,7 +47,7 @@ describe('ArrayField', () => {
 
   it('should render multi-select type', () => {
     let value: any[] = []
-    const wrapper = mount(SchemaForm, {
+    const wrapper = mount(TestComponent, {
       props: {
         schema: {
           type: 'array',
@@ -61,6 +61,6 @@ describe('ArrayField', () => {
     const arr = wrapper.findComponent(ArrayField)
     const selection = arr.findComponent(SelectionWidget)
     expect(selection.exists()).toBeTruthy()
-    
+
   })
 })

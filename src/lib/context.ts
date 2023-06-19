@@ -8,6 +8,7 @@ type SchemaContext = {
   theme: Theme
 }
 
+// 不需要use开头也行
 export function useSchemaContext () {
   const context: SchemaContext | undefined = inject(SchemaKey)
   if (!context) {

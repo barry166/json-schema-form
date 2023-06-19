@@ -17,17 +17,16 @@ export default defineComponent({
       type: Function as PropType<(v: any) => void>,
       required: true
     },
-    theme: {
-      type: Object as PropType<Theme>,
-      required: true
-    }
+    // theme: {
+    //   type: Object as PropType<Theme>,
+    //   required: true
+    // }
   },
   setup(props) {
     provide(
       /* 注入名 */ SchemaKey,
       /* 值 */ {
         SchemaItem,
-        theme: props.theme
       }
     )
 

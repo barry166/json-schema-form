@@ -87,6 +87,12 @@ export type CommonFieldType = DefineComponent<typeof FieldPropsDefine>
 export type CommonWidgetDefine = DefineComponent<typeof CommonWidgetPropsDefine>
 export type SelectionWidgetDefine = DefineComponent<typeof SelectionWidgetPropsDefine>
 
+export enum WidgetNames {
+  SelectionWidget = 'SelectionWidget',
+  TextWidget = 'TextWidget',
+  NumberWidget = 'NumberWidget'
+}
+
 export type Theme = {
   widgets: {
     SelectionWidget: SelectionWidgetDefine
