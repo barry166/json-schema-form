@@ -6,9 +6,10 @@ export default defineComponent({
   name: 'NumberField',
   props: FieldPropsDefine,
   setup(props) {
-    const handleChange = (e: any) => {
-      const value = e.target.value
-      Number.isNaN(value) ? props.onChange(undefined) : props.onChange(Number(e.target.value))
+    const handleChange = (v: any) => {
+      props.onChange(v)
+      // const value = e.target.value
+      // Number.isNaN(value) ? props.onChange(undefined) : props.onChange(Number(e.target.value))
     }
 
     const NumberWidgetRef = getWidget(WidgetNames.NumberWidget)

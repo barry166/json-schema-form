@@ -9,6 +9,7 @@ export default defineComponent({
     const handleChange = (e: any) => {
       console.log('StringField handleChange', e)
       // props.onChange(e.target.value)
+      // 直接将值传给下层处理返回即可
       props.onChange(e)
     }
 
