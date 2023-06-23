@@ -15,6 +15,7 @@ specifiers:
   '@vue/test-utils': ^2.3.2
   '@vue/tsconfig': ^0.4.0
   ajv: ^8.12.0
+  ajv-i18n: ^4.2.0
   eslint: ^8.39.0
   eslint-plugin-vue: ^9.11.0
   jsdom: ^22.1.0
@@ -35,6 +36,7 @@ specifiers:
 
 dependencies:
   ajv: 8.12.0
+  ajv-i18n: 4.2.0_ajv@8.12.0
   json-schema-merge-allof: 0.8.1
   jsonpointer: 5.0.1
   lodash.union: 4.6.0
@@ -1215,6 +1217,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /ajv-i18n/4.2.0_ajv@8.12.0:
+    resolution: {integrity: sha512-v/ei2UkCEeuKNXh8RToiFsUclmU+G57LO1Oo22OagNMENIw+Yb8eMwvHu7Vn9fmkjJyv6XclhJ8TbuigSglPkg==}
+    peerDependencies:
+      ajv: ^8.0.0-beta.0
+    dependencies:
+      ajv: 8.12.0
+    dev: false
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}

@@ -22,7 +22,6 @@ export function getWidget(name: WidgetNames) {
   if (!context) {
     throw new Error('must be use in Theme Provider')
   }
-  console.log('-----', context.value)
   return computed(() => context.value.widgets[name])
 }
 

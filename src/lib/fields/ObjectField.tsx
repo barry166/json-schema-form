@@ -20,8 +20,8 @@ export default defineComponent({
 
     return () => {
       // 属性需要写在setup里面，因为在setup回调会每次更新调用
-      const { schema, rootSchema, value } = props
-      console.log('object field value', value)
+      const { schema, rootSchema, value, errorSchema } = props
+      // console.log('object field value', value)
       const context = useSchemaContext()
       const { SchemaItem } = context
 
@@ -36,6 +36,7 @@ export default defineComponent({
             rootSchema={rootSchema}
             value={currentValue[k]}
             onChange={(v) => handleFieldChange(k, v)}
+            errorSchema={errorSchema[k] || {}}
           />
         )
       })

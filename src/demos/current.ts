@@ -27,7 +27,7 @@ export default {
         items: {
           type: 'object',
           properties: {
-            name: { type: 'string', title: 'name' },
+            name: { type: 'string', title: 'name', minLength: 3 },
             age: { type: 'number', title: 'age' },
           },
         },
@@ -47,6 +47,16 @@ export default {
     },
   },
   uiSchema: {},
+  async customValidate (data: any, errors: any) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (data.pass1 != data.pass2) {
+          errors.pass2.addError('密码必须相同')
+        }
+        resolve(true)
+      }, 2000)
+    })
+  },
   default: {
     pass1: '',
     pass2: '',

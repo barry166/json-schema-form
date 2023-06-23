@@ -136,6 +136,7 @@ export default defineComponent({
               schema={s}
               value={arr[index]}
               onChange={(v) => handleArrayItemChange(v, index)}
+              errorSchema={props.errorSchema[index] || {}}
             />
           )
         })
@@ -157,6 +158,7 @@ export default defineComponent({
                 schema={schema.items as Schema}
                 value={v}
                 onChange={(v) => handleArrayItemChange(v, index)}
+                errorSchema={props.errorSchema[index] || {}}
               />
             </ArrayItemWrapper>
           )
@@ -165,7 +167,15 @@ export default defineComponent({
         const enumValue = (schema.items as any)!.enum
         const options = enumValue.map((i: any) => ({ key: i, value: i }))
 
-        return <SelectionWidget value={props.value} onChange={props.onChange} options={options} />
+        return (
+          <SelectionWidget
+            value={props.value}
+            onChange={props.onChange}
+            options={options}
+            errors={props.errorSchema.__errors}
+            schema={schema}
+          />
+        )
       }
     }
   }

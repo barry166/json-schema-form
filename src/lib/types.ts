@@ -1,5 +1,6 @@
 import type { DefineComponent, PropType } from 'vue'
 import SelectionWidget from './widgets/selection'
+import type { ErrorSchema } from './validator'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -64,6 +65,10 @@ export const FieldPropsDefine = {
   onChange: {
     type: Function as PropType<(v: any) => void>,
     required: true
+  },
+  errorSchema: {
+    type: Object as PropType<ErrorSchema>,
+    required: true
   }
 } as const
 
@@ -72,7 +77,14 @@ export const CommonWidgetPropsDefine = {
   onChange: {
     type: Function as PropType<(v: any) => void>,
     required: true,
-  }
+  },
+  schema: {
+    type: Object as PropType<Schema>,
+    required: true,
+  },
+  errors: {
+    type: Object as PropType<string[]>,
+  },
 } as const
 
 export const SelectionWidgetPropsDefine = {

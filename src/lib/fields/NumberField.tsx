@@ -15,10 +15,10 @@ export default defineComponent({
     const NumberWidgetRef = getWidget(WidgetNames.NumberWidget)
 
     return () => {
-      const { value, schema } = props
+      const { value, schema, errorSchema } = props
       const NumberWidget = NumberWidgetRef.value as CommonWidgetDefine
 
-      return <NumberWidget {...props} />
+      return <NumberWidget {...props} errors={errorSchema.__errors} />
     }
   }
 })

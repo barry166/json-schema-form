@@ -30,6 +30,8 @@ export default defineComponent({
     })
     const selectedRef: Ref<number> = ref(0)
 
+    const contextRef: Ref<any> = ref()
+
     // 数据监听，确定 demo 的当前值
     watchEffect(() => {
       const index = selectedRef.value
@@ -62,10 +64,15 @@ export default defineComponent({
     const handleDataChange = (v: string) => handleCodeChange('data', v)
     const handleUISchemaChange = (v: string) => handleCodeChange('uiSchema', v)
 
+    const validateForm = () => {
+      contextRef.value.doValidate()
+    }
+
     return () => {
       return (
         <div class={classes['app-container']}>
           <div class={classes.code}>
+          <button onClick={validateForm}>doValidate</button>
             <MonacoEditor code={demo.schemaCode} onChange={handleSchemaChange} title="Schema" />
             <div class={classes.uiAndValue}>
               <MonacoEditor
@@ -89,6 +96,8 @@ export default defineComponent({
                 schema={demo.schema}
                 value={demo.data}
                 onChange={handleValueChange}
+                contextRef={contextRef}
+                customValidate={demo.customValidate}
               />
             </ThemeProvider>
           </div>

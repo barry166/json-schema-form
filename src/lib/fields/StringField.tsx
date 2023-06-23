@@ -18,11 +18,18 @@ export default defineComponent({
     })
 
     return () => {
-      const { value, schema } = props
+      const { value, schema, errorSchema } = props
       const TextWidget = TextWidgetRef.value as CommonWidgetDefine
 
       // return <input type='text' onInput={handleChange} value={value} />
-      return <TextWidget value={value} onChange={handleChange} />
+      return (
+        <TextWidget
+          value={value}
+          schema={schema}
+          onChange={handleChange}
+          errors={errorSchema.__errors}
+        />
+      )
     }
   }
 })
