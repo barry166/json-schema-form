@@ -109,15 +109,6 @@ export async function validateFormData (
   locale = 'zh',
   customValidate?: (data: any, errors: any) => void,
 ) {
-  console.log(
-    'validator',
-    validator,
-    'formData',
-    formData,
-    schema,
-    locale,
-    customValidate,
-  )
   let validationError = null
   try {
     validator.validate(schema, formData)

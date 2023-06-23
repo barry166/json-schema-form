@@ -1,6 +1,7 @@
 import type { DefineComponent, PropType } from 'vue'
 import SelectionWidget from './widgets/selection'
 import type { ErrorSchema } from './validator'
+import type { Format, MacroKeywordDefinition } from 'ajv'
 
 export enum SchemaTypes {
   'NUMBER' = 'number',
@@ -69,7 +70,11 @@ export const FieldPropsDefine = {
   errorSchema: {
     type: Object as PropType<ErrorSchema>,
     required: true
-  }
+  },
+  uiSchema: {
+    type: Object as PropType<UISchema>,
+    required: true,
+  },
 } as const
 
 export const CommonWidgetPropsDefine = {
@@ -85,6 +90,9 @@ export const CommonWidgetPropsDefine = {
   errors: {
     type: Object as PropType<string[]>,
   },
+  options: {
+    type: Object as PropType<{ [key: string]: any }>,
+  }
 } as const
 
 export const SelectionWidgetPropsDefine = {
@@ -112,3 +120,28 @@ export type Theme = {
     NumberWidget: CommonWidgetDefine
   }
 }
+
+export type UISchema = {
+  widget?: string | CommonWidgetDefine
+  properties?: {
+    [key: string]: UISchema
+  }
+  items?: UISchema | UISchema[]
+} & {
+  [key: string]: string
+}
+
+
+export interface CustomFormat {
+  name: string
+  definition: Format
+  component: CommonWidgetDefine
+}
+
+
+export interface CustomKeyword {
+  name: string
+  definition: MacroKeywordDefinition
+  transformSchema: (originSchema: Schema) => Schema
+}
+

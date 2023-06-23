@@ -116,7 +116,7 @@ export default defineComponent({
     const SelectionWidgetRef = getWidget(WidgetNames.SelectionWidget)
 
     return () => {
-      const { value = [], schema, rootSchema } = props
+      const { value = [], schema, rootSchema, uiSchema } = props
 
       const context = useSchemaContext()
       const { SchemaItem, theme } = context
@@ -128,12 +128,17 @@ export default defineComponent({
       if (isMultiType) {
         const items: Schema[] = schema.items as any
         const arr = Array.isArray(value) ? value : []
+
         return items!.map((s: Schema, index: number) => {
+          const itemUiSchema = uiSchema.items || []
+          const uis = Array.isArray(itemUiSchema) ? itemUiSchema[index] || {} : itemUiSchema
+
           return (
             <SchemaItem
               key={index}
               rootSchema={rootSchema}
               schema={s}
+              uiSchema={uis}
               value={arr[index]}
               onChange={(v) => handleArrayItemChange(v, index)}
               errorSchema={props.errorSchema[index] || {}}
@@ -156,6 +161,7 @@ export default defineComponent({
                 key={index}
                 rootSchema={rootSchema}
                 schema={schema.items as Schema}
+                uiSchema={(uiSchema.items as any) || {}}
                 value={v}
                 onChange={(v) => handleArrayItemChange(v, index)}
                 errorSchema={props.errorSchema[index] || {}}

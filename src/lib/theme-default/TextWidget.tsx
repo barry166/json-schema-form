@@ -13,9 +13,13 @@ const TextWidget = withFormItem(
         props.onChange(v)
       }
 
+      const styleRef = computed(() => ({ color: props.options?.color || 'black' }))
+
       return () => {
         const { value } = props
-        return <input type="text" value={value as any} onInput={handleChange} />
+        return (
+          <input type="text" value={value as any} onInput={handleChange} style={styleRef.value} />
+        )
       }
     }
   })

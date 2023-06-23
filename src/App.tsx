@@ -4,6 +4,8 @@ import classes from './App.module.scss'
 import SchemaForm, { ThemeProvider } from './lib'
 import themeDefault from './lib/theme-default'
 import demos from './demos'
+import customFormat from './plugins/customFormat'
+import customKeyword from './plugins/customKeyword'
 
 function toJson(data: any) {
   return JSON.stringify(data, null, 2)
@@ -52,7 +54,6 @@ export default defineComponent({
     }
 
     const handleCodeChange = (field: 'schema' | 'data' | 'uiSchema', value: string) => {
-      console.log('handleCodeChange', value)
       try {
         const json = JSON.parse(value)
         demo[field] = json(demo as any)[`${field}Code`] = value
@@ -66,13 +67,14 @@ export default defineComponent({
 
     const validateForm = () => {
       contextRef.value.doValidate()
+      console.log(contextRef.value.getFormData())
     }
 
     return () => {
       return (
         <div class={classes['app-container']}>
           <div class={classes.code}>
-          <button onClick={validateForm}>doValidate</button>
+            <button onClick={validateForm}>doValidate</button>
             <MonacoEditor code={demo.schemaCode} onChange={handleSchemaChange} title="Schema" />
             <div class={classes.uiAndValue}>
               <MonacoEditor
@@ -94,10 +96,13 @@ export default defineComponent({
               <SchemaForm
                 // theme={themeDefault as any}
                 schema={demo.schema}
+                uiSchema={demo.uiSchema}
                 value={demo.data}
                 onChange={handleValueChange}
                 contextRef={contextRef}
                 customValidate={demo.customValidate}
+                customFormats={customFormat}
+                customKeywords={customKeyword}
               />
             </ThemeProvider>
           </div>

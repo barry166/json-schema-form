@@ -1,3 +1,5 @@
+import PasswordWidget from '@/components/PasswordWidget'
+
 export default {
   name: 'current',
   schema: {
@@ -12,6 +14,17 @@ export default {
         type: 'string',
         minLength: 10,
         title: 're-try password',
+      },
+      color: {
+        type: 'string',
+        format: 'color',
+        title: 'Input Color',
+      },
+      testkeyword: {
+        type: 'string',
+        minLength: 10,
+        test: 'true',
+        title: 'keyword test',
       },
       staticArray: {
         type: 'array',
@@ -46,7 +59,16 @@ export default {
       }
     },
   },
-  uiSchema: {},
+  uiSchema: {
+    properties: {
+      pass1: {
+        widget: PasswordWidget,
+      },
+      pass2: {
+        color: 'red',
+      },
+    },
+  },
   async customValidate (data: any, errors: any) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -60,6 +82,8 @@ export default {
   default: {
     pass1: '',
     pass2: '',
+    color: '#861818',
+    testkeyword: '',
     staticArray: ['string', 111],
     singleTypeArray: [{
       name: 'barry',

@@ -9,7 +9,7 @@ export default defineComponent({
   setup(props) {
     const handleFieldChange = (key: string, v: any) => {
       const changeValue: any = isObject(props.value) ? props.value : {}
-      console.log('changeValue', changeValue, key, v)
+      // console.log('changeValue', changeValue, key, v)
       if (v === undefined) {
         delete changeValue[key]
       } else {
@@ -20,7 +20,7 @@ export default defineComponent({
 
     return () => {
       // 属性需要写在setup里面，因为在setup回调会每次更新调用
-      const { schema, rootSchema, value, errorSchema } = props
+      const { schema, rootSchema, value, errorSchema, uiSchema } = props
       // console.log('object field value', value)
       const context = useSchemaContext()
       const { SchemaItem } = context
@@ -33,6 +33,7 @@ export default defineComponent({
           <SchemaItem
             key={index}
             schema={properties[k]}
+            uiSchema={uiSchema.properties ? uiSchema.properties[k] || {} : {}}
             rootSchema={rootSchema}
             value={currentValue[k]}
             onChange={(v) => handleFieldChange(k, v)}
